@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+
+        {% load static %}
+        <!-- inclusion of compiled cssfile from SASS -->
+        <link rel="stylesheet" href="{% static '/landr_app/styles/base.css'%}">
+        <!-- Project specfic JS and Libs -->
+        <script src="{% static '/landr_app/js/template.js'%}"></script>
+        <!-- including Bootstrap for responsive -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            <div class="header">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="">Welcome to the Belt Exam!</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 bdr-r col-sm-12 form-wrapper">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Login Here:</h2>
+                        </div>
+                        <div class="col-12">
+                            <div class="required">* marks required fields</div>
+                        </div>
+                    </div>
+                    <div class="row errors">
+                        <div class="col-12">
+                            {% if messages %}
+                            <ul>
+                                {% for message in messages %}
+                                    {% if message.tags == "login error" %}
+                                        <li>{{message}}</li>
+                                    {% endif %}
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form action='/login' method='POST'>
+                            <div class="col-12">
+                                <div class="row mr0">
+                                    {% csrf_token %}
+                                    <label for="name" class="col-6">Email*</label>
+                                    <input type='text' name='login_email' id="name" class="col-6 input-box">
+                                </div>
+                                <div class="row mr0">
+                                    <label for="name" class="col-6">Password*</label>
+                                    <input type='password' name='login_pw' class="col-6 input-box">
+                                </div>
+                                <input type='submit' value='Sign In' class="button float-right">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 form-wrapper">
+                    <div class="row">
+                        <div class="col-12">
+                           <h2>Register Here:</h2>
+                        </div>
+                        <div class="col-12">
+                            <div class="required">* marks required fields</div>
+                        </div>
+                    </div>
+                    <div class="row errors">
+                        <div class="col-12">
+                                {% if messages %}
+                                <ul>
+                                    {% for message in messages %}
+                                    {% if message.tags == "register error" %}
+                                        <li>{{message}}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form action='/register' method='POST'>
+                            <div class="col-12">
+                                <div class="row mr0">
+                                    {% csrf_token %}
+                                    <label for="name" class="col-6">First Name* </label>
+                                    <input type='text' name='first_name' id="first_name" class="col-6 input-box">
+                                </div>
+                                <div class="row mr0">
+                                    <label for="name" class="col-6">Last Name*</label>
+                                    <input type='text' name='last_name' class="col-6 input-box">
+                                </div>
+                                <div class="row mr0">
+                                    <label for="name" class="col-6">Email*</label>
+                                    <input type='text' name='email' id="" class="col-6 input-box">
+                                </div>
+                                <div class="row mr0">
+                                    <label for="name" class="col-6">Password*</label>
+                                    <input type='password' name='pw' class="col-6 input-box">
+                                </div>
+                                <div class="row mr0">
+                                    <label for="name" class="col-6">Confirm Password*</label>
+                                    <input type='password' name='pwc' class="col-6 input-box">
+                                </div>
+                                <!-- build in Date of Birth addition last -->
+                                <div class="row mr0">
+                                    <label for="dob" class="col-6">Date of Birth</label>
+                                    <input type="date" name="bday">
+                                </div>
+
+                                <input type='submit' value='Sign Up' class="button float-right">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

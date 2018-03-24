@@ -1,0 +1,125 @@
+// Import modules via all.scss
+@import "modules/modules";
+
+// import helpers
+@import "helpers/buttons";
+@import "helpers/mixins";
+
+// import responsive sheets
+@import "responsive/1phone";
+@import "responsive/2tablet";
+@import "responsive/3desktop";
+
+
+.container{
+    padding: 0 20px 20px 20px;
+    color: $t-stone;
+    .header{
+        width: 100%;
+        height: 50px;
+        background-color: $t-stone;
+        color: white;
+        h3{
+            line-height: 50px;
+            font-size: 24px;
+            margin-left: 20px;
+        }
+        a{
+            color: white;
+            text-decoration: none;
+            line-height: 50px;
+            font-size: 20px;
+            margin: 0 20px;
+            &:hover{
+                color: $sand;
+            }
+        }
+    }
+    h1{
+        margin-bottom: 20px;
+    }
+    .red{
+        color: red;
+    }
+    h2{
+        margin: 30px 20px 0px 0px;
+    }
+    .required{
+        font-size: 10px;
+        margin-bottom: 20px;
+    }
+    .book-review-tile{
+        .review-desc{
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    }
+    .rating-box{
+        width: 100%;
+        border: 1px solid $t-stone;
+        padding: 20px;
+        height: 300px;
+        overflow: scroll;
+    }
+    .row{
+        margin-bottom: 10px;
+    }
+    .box{
+        max-height: 300px;
+        border: 2px solid gray;
+        overflow: scroll;
+    }
+    // forms
+    .form-wrapper{
+        padding: 0 50px;
+        @extend %clearfix;
+        .button{
+            margin: 20px 0;
+            padding: 5px 30px;
+            font-size: 16px;
+            color: $white;
+            background-color: $t-teal;
+            border: 2px solid $t-gray;
+            @include transition(color .7s ease);
+            @include transition(background-color .3s ease);
+            &:hover{
+                background-color: $t-gray;
+                color: $t-teal;
+                border: 2px solid $t-stone;
+                cursor: pointer;
+            }
+        }
+        textarea{
+            width: 100%;
+        }
+        .mr0{
+            margin-right: 0px;
+        }
+        .input-box{
+            border: 1px solid $t-rain;
+            max-width: 75%;
+            width: 100%;
+            padding-right: 20px;
+        }
+    }
+    .bdr-r{
+        border-right: 2px solid $t-opal;
+        padding-right: 60px;
+    }
+    // errors
+    .errors{
+        color: red;
+        max-width: 95%;
+        height:auto;
+        ul{
+            margin: 5px 0 5px 20px;
+            list-style: circle;
+            li{
+                font-size: 0.8em;
+            }
+        }
+    }
+    form{
+        width: 100%;
+    }
+}

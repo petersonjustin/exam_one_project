@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+
+        {% load static %}
+        <!-- inclusion of compiled cssfile from SASS -->
+        <link rel="stylesheet" href="{% static '/landr_app/styles/base.css'%}">
+        <!-- Project specfic JS and Libs -->
+        <script src="{% static '/landr_app/js/template.js'%}"></script>
+        <!-- including Bootstrap for responsive -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            <div class="row header">
+                <div class="col-5">
+                    <h3 class="">Welcome to the Belt Exam {{login.first_name}}</h3>
+                </div>
+                <div class="col-1">
+                    <div class="hidden" id="user_id">{{request.session.user_id}}</div>
+                </div>
+                <div class="col-6">
+                    <h4 class="tar">
+                        <a href="/second">Dashboard</a> |  <a href="/logout">Log Out</a>
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Posts By {{user.first_name}}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <h3>Count: {{quote_count}}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- for of quotes the user has created. with quote author and description -->
+                            {% for quote in quote_list %}
+                            <div class="quote">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span class="red">{{quote.author}}</span>: {{quote.desc}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </body>
+</html>

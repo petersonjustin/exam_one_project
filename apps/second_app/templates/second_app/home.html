@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+
+        {% load static %}
+        <!-- inclusion of compiled cssfile from SASS -->
+        <link rel="stylesheet" href="{% static '/landr_app/styles/base.css'%}">
+        <!-- Project specfic JS and Libs -->
+        <script src="{% static '/landr_app/js/template.js'%}"></script>
+        <!-- including Bootstrap for responsive -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            <div class="row header">
+                <div class="col-5">
+                    <h3 class="">Welcome to the Belt Exam {{user.first_name}}</h3>
+                </div>
+                <div class="col-1">
+                    <div class="hidden" id="user_id">{{request.session.user_id}}</div>
+                </div>
+                <div class="col-6">
+                    <h4 class="tar">
+                        <a href="/logout">Log Out</a>
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h1>Quotable Quotes</h1>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="quote-box">
+                                <!-- start for loop for quotes -->
+                                {% for quote in non_favorited_quotes %}
+                                <div class="quote">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span>{{quote.author}}</span>: {{quote.desc}}
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6">posted by <a href="user/{{quote.creator.id}}">{{quote.creator.first_name}}</a></div>
+                                                <div class="col-6">
+                                                    <form action="/second/add_favorite" method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="quote_id" value="{{quote.id}}">
+                                                        <input type="hidden" name="user_id" value="{{request.session.user_id}}">
+                                                        <!-- route should take the quote from this list, put it into user.favorites and then refresh page -->
+                                                        <input type="submit" value="Add To My List">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end if quote is not user favorite -->
+                                {% endfor %}
+                                <!-- end for loop for quotes -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h1>Your Favorites</h1>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="quote-box">
+                                <!-- start for loop for quotes -->
+                                {% for quote in favorited_quotes %}
+                                <!-- if quote is  user favorite -->
+                                <div class="quote">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span>{{quote.author}}: </span>{{ quote.desc}}
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6">posted by <a href="user/{{quote.creator.id}}">{{quote.creator.first_name}}</a></div>
+                                                <div class="col-6">
+                                                    <form action="/second/remove_favorite" method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="quote_id" value="{{quote.id}}">
+                                                        <input type="hidden" name="user_id" value="{{request.session.user_id}}">
+                                                        <!-- route should take the quote from favorites, remove key from favorites and then refresh page -->
+                                                        <input type="submit" value="Remove From My List">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <!-- end if quote is  user favorite -->
+                                <!-- end for loop for quotes -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h1>Contribute a Quote:</h1>
+                        </div>
+                        <div class="col-12">
+                            {% if messages %}
+                            <ul>
+                                {% for message in messages %}
+                                        <li class="red">{{message}}</li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                            <form action="/second/create_quote" method="POST">
+                                <!-- Route should create new quote and refresh page. -->
+                                {% csrf_token %}
+                                <div class="row">
+                                    <input type="hidden" name="user_id" value="{{request.session.user_id}}">
+                                    <div class="col-4">Quoted By</div>
+                                    <div class="col-8">
+                                        <input type="text" name="author">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">Quote Message</div>
+                                    <div class="col-8">
+                                        <textarea name="desc"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <input type="submit" value="Submit">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
